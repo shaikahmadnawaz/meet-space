@@ -5,13 +5,15 @@ import ViewBookings from "./components/ViewBookings";
 import EditBooking from "./components/EditBooking";
 
 function App() {
-  // Sample data for available rooms and bookings
+  // Sample data for available rooms
   const [rooms] = useState([
     { id: 1, name: "Room A" },
     { id: 2, name: "Room B" },
+    { id: 3, name: "Room C" },
   ]);
 
-  const [bookings, setBookings] = useState([
+  // Sample data for bookings (you can update this as needed)
+  const [initialBookings] = useState([
     {
       id: 1,
       room_id: 1,
@@ -28,8 +30,29 @@ function App() {
       end_time: "2023-09-01T11:00:00",
       room_name: "Room B",
     },
-    // Add more bookings as needed
+    // Add more booking data as needed
   ]);
+
+  const selectedTime = "2023-09-01T09:30:00"; // Example selected time
+
+  const [bookings, setBookings] = useState(initialBookings);
+
+  // Function to handle room booking
+  const handleBookRoom = (room_id, start_time) => {
+    // Implement the booking action here and update the bookings state
+    const newBooking = {
+      id: bookings.length + 1,
+      room_id,
+      user_id: 1, // You can set the user ID as needed
+      start_time: `2023-09-01T${start_time}:00`,
+      end_time: `2023-09-01T${
+        start_time === "23:30" ? "00:00" : start_time.slice(0, 2)
+      }:${start_time === "23:30" ? "30" : "00"}:00`,
+      room_name: rooms.find((room) => room.id === room_id)?.name || "",
+    };
+
+    setBookings([...bookings, newBooking]);
+  };
 
   // Function to update a booking
   const onUpdateBooking = (bookingId, newStartTime, newEndTime) => {
@@ -62,9 +85,13 @@ function App() {
 
   return (
     <div className="App">
-      <h1>Meeting Room Booking System</h1>
-      <AvailableRooms rooms={rooms} bookings={bookings} />
-      <BookRoom rooms={rooms} bookings={bookings} />
+      <h1 className="text-2xl font-bold mb-4">Meeting Room Booking System</h1>
+      <AvailableRooms
+        rooms={rooms}
+        bookings={bookings}
+        selectedTime={selectedTime}
+      />
+      <BookRoom rooms={rooms} bookings={bookings} onBookRoom={handleBookRoom} />
       <ViewBookings bookings={bookings} user={{ id: 1 }} />
       <EditBooking
         bookings={bookings}

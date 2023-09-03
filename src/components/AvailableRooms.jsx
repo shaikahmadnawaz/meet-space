@@ -1,48 +1,37 @@
-import React from "react";
-
-const AvailableRooms = ({ rooms, bookings }) => {
-  // Function to check if a room is available at a given time slot
-  const isRoomAvailable = (roomId, startTime, endTime) => {
-    return !bookings.some((booking) => {
-      return (
-        booking.room_id === roomId &&
-        ((startTime >= booking.start_time && startTime < booking.end_time) ||
-          (endTime > booking.start_time && endTime <= booking.end_time))
-      );
-    });
-  };
-
+const AvailableRooms = ({ rooms, bookings, selectedTime }) => {
   return (
     <div className="bg-white p-4 rounded-lg shadow-md">
       <h2 className="text-xl font-semibold mb-4">Available Meeting Rooms</h2>
       <ul>
-        {rooms.map((room) => (
-          <li
-            key={room.id}
-            className="flex justify-between items-center border-b py-2"
-          >
-            <span className="text-lg">{room.name}</span>
-            <span
-              className={`${
-                isRoomAvailable(
-                  room.id,
-                  new Date(),
-                  new Date().getTime() + 30 * 60 * 1000
-                )
-                  ? "text-green-600"
-                  : "text-red-600"
+        {rooms.map((room) => {
+          const isAvailable = !bookings.some((booking) => {
+            return (
+              booking.room_id === room.id &&
+              ((selectedTime >= booking.start_time &&
+                selectedTime < booking.end_time) ||
+                (selectedTime > booking.start_time &&
+                  selectedTime <= booking.end_time))
+            );
+          });
+
+          return (
+            <li
+              key={room.id}
+              className={`flex items-center justify-between p-3 border-b ${
+                isAvailable ? "bg-green-100" : "bg-red-100"
               }`}
             >
-              {isRoomAvailable(
-                room.id,
-                new Date(),
-                new Date().getTime() + 30 * 60 * 1000
-              )
-                ? "Available"
-                : "Unavailable"}
-            </span>
-          </li>
-        ))}
+              <span className="font-semibold">{room.name}</span>
+              <span
+                className={`text-sm ${
+                  isAvailable ? "text-green-500" : "text-red-500"
+                }`}
+              >
+                {isAvailable ? "Available" : "Booked"}
+              </span>
+            </li>
+          );
+        })}
       </ul>
     </div>
   );

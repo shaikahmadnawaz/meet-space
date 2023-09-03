@@ -1,104 +1,94 @@
-import React, { useState } from "react";
+import { useState } from "react";
 
 const EditBooking = ({ bookings, user, onUpdateBooking, onCancelBooking }) => {
-  const userBookings = bookings.filter(
-    (booking) => booking.user_id === user.id
-  );
-
-  const [selectedBooking, setSelectedBooking] = useState("");
+  const [selectedBookingId, setSelectedBookingId] = useState(null);
   const [newStartTime, setNewStartTime] = useState("");
   const [newEndTime, setNewEndTime] = useState("");
+  const [isEditing, setIsEditing] = useState(false);
 
-  const handleUpdateBooking = () => {
-    // Validation: Check for conflicts and empty fields
-    if (!newStartTime || !newEndTime || newStartTime >= newEndTime) {
-      // Handle validation error
-      return;
-    }
-
-    // Update the booking using the onUpdateBooking function
-    onUpdateBooking(selectedBooking, newStartTime, newEndTime);
-
-    // Clear form fields
-    setSelectedBooking("");
-    setNewStartTime("");
-    setNewEndTime("");
+  // Function to handle the edit action
+  const handleEdit = (bookingId) => {
+    const selectedBooking = bookings.find(
+      (booking) => booking.id === bookingId
+    );
+    setSelectedBookingId(bookingId);
+    setNewStartTime(selectedBooking.start_time);
+    setNewEndTime(selectedBooking.end_time);
+    setIsEditing(true);
   };
 
-  const handleCancelBooking = () => {
-    // Cancel the booking using the onCancelBooking function
-    onCancelBooking(selectedBooking);
+  // Function to handle the update action
+  const handleUpdate = () => {
+    if (newStartTime && newEndTime) {
+      onUpdateBooking(selectedBookingId, newStartTime, newEndTime);
+      setIsEditing(false);
+    }
+  };
 
-    // Clear form fields
-    setSelectedBooking("");
+  // Function to handle the cancel action
+  const handleCancel = (bookingId) => {
+    onCancelBooking(bookingId);
+    setIsEditing(false);
   };
 
   return (
     <div className="bg-white p-4 rounded-lg shadow-md">
-      <h2 className="text-xl font-semibold mb-4">Edit or Cancel Booking</h2>
-      {userBookings.length === 0 ? (
-        <p className="text-gray-500">You have no bookings to edit or cancel.</p>
-      ) : (
-        <div>
-          <div className="mb-4">
-            <label className="block text-sm font-medium text-gray-700 mb-2">
-              Select a Booking:
-            </label>
-            <select
-              className="block w-full p-2 border rounded-md"
-              value={selectedBooking}
-              onChange={(e) => setSelectedBooking(e.target.value)}
-            >
-              <option value="">Select a booking</option>
-              {userBookings.map((booking) => (
-                <option key={booking.id} value={booking.id}>
-                  {new Date(booking.start_time).toLocaleString()} to{" "}
-                  {new Date(booking.end_time).toLocaleString()} -{" "}
-                  {booking.room_name}
-                </option>
-              ))}
-            </select>
-          </div>
-          {selectedBooking && (
-            <div className="mb-4">
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                Modify Booking Time Slot:
-              </label>
-              <div className="flex space-x-2">
-                <input
-                  type="time"
-                  className="flex-1 p-2 border rounded-md"
-                  value={newStartTime}
-                  onChange={(e) => setNewStartTime(e.target.value)}
-                />
-                <span className="flex-1 text-center">to</span>
-                <input
-                  type="time"
-                  className="flex-1 p-2 border rounded-md"
-                  value={newEndTime}
-                  onChange={(e) => setNewEndTime(e.target.value)}
-                />
-              </div>
+      <h2 className="text-xl font-semibold mb-4">Edit or Cancel Bookings</h2>
+      {bookings.map((booking) => (
+        <div key={booking.id} className="mb-4">
+          <p className="text-gray-600">
+            {booking.room_name} ({booking.start_time} - {booking.end_time})
+          </p>
+          {user.id === booking.user_id && (
+            <div className="mt-2">
+              {isEditing && selectedBookingId === booking.id ? (
+                <>
+                  <input
+                    type="time"
+                    className="w-32 py-2 px-3 border rounded-md"
+                    value={newStartTime}
+                    onChange={(e) => setNewStartTime(e.target.value)}
+                  />
+                  <span className="mx-2">to</span>
+                  <input
+                    type="time"
+                    className="w-32 py-2 px-3 border rounded-md"
+                    value={newEndTime}
+                    onChange={(e) => setNewEndTime(e.target.value)}
+                  />
+                  <button
+                    className="bg-blue-500 text-white py-2 px-4 rounded-md ml-2"
+                    onClick={handleUpdate}
+                  >
+                    Update
+                  </button>
+                  <button
+                    className="text-red-600 py-2 px-4 ml-2"
+                    onClick={() => setIsEditing(false)}
+                  >
+                    Cancel
+                  </button>
+                </>
+              ) : (
+                <>
+                  <button
+                    className="bg-green-500 text-white py-2 px-4 rounded-md"
+                    onClick={() => handleEdit(booking.id)}
+                  >
+                    Edit
+                  </button>
+                  <button
+                    className="text-red-600 py-2 px-4 ml-2"
+                    onClick={() => handleCancel(booking.id)}
+                  >
+                    Cancel
+                  </button>
+                </>
+              )}
             </div>
           )}
-          <div className="flex space-x-2">
-            <button
-              className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600"
-              onClick={handleUpdateBooking}
-              disabled={!selectedBooking}
-            >
-              Update Booking
-            </button>
-            <button
-              className="bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-600"
-              onClick={handleCancelBooking}
-              disabled={!selectedBooking}
-            >
-              Cancel Booking
-            </button>
-          </div>
         </div>
-      )}
+      ))}
     </div>
   );
 };
