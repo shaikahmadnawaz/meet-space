@@ -1,0 +1,30 @@
+{
+  "rooms": [
+    { "id": 1, "name": "Room A" },
+    { "id": 2, "name": "Room B" },
+    { "id": 3, "name": "Room C" }
+  ],
+  "bookings": [
+    {
+      "id": 1,
+      "room_id": 1,
+      "user_id": 1,
+      "start_time": "2023-09-01T09:00:00",
+      "end_time": "2023-09-01T09:30:00"
+    },
+    {
+      "id": 2,
+      "room_id": 2,
+      "user_id": 2,
+      "start_time": "2023-09-01T10:30:00",
+      "end_time": "2023-09-01T11:00:00"
+    },
+    {
+      "id": 3,
+      "room_id": 1,
+      "user_id": 3,
+      "start_time": "2023-09-01T14:00:00",
+      "end_time": "2023-09-01T15:00:00"
+    }
+  ]
+}
