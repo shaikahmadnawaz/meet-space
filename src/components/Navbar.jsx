@@ -22,9 +22,9 @@ const Navbar = () => {
     setIsMenuOpen(!isMenuOpen);
   };
   return (
-    <nav className="w-full h-[7.5rem]">
+    <nav className="w-full ">
       <header className="relative w-full bg-secondary">
-        <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-2">
+        <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-6">
           <div className="inline-flex items-center space-x-2">
             <span className="font-bold md:text-xl">MeetSpace</span>
           </div>
