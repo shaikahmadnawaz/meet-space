@@ -3,6 +3,8 @@ import AvailableRooms from "./components/AvailableRooms";
 import BookRoom from "./components/BookRoom";
 import ViewBookings from "./components/ViewBookings";
 import EditBooking from "./components/EditBooking";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import Landing from "./pages/Landing";
 
 function App() {
   // Sample data for available rooms
@@ -84,22 +86,27 @@ function App() {
   };
 
   return (
-    <div className="App">
-      <h1 className="text-2xl font-bold mb-4">Meeting Room Booking System</h1>
-      <AvailableRooms
-        rooms={rooms}
-        bookings={bookings}
-        selectedTime={selectedTime}
-      />
-      <BookRoom rooms={rooms} bookings={bookings} onBookRoom={handleBookRoom} />
-      <ViewBookings bookings={bookings} user={{ id: 1 }} />
-      <EditBooking
-        bookings={bookings}
-        user={{ id: 1 }}
-        onUpdateBooking={onUpdateBooking}
-        onCancelBooking={onCancelBooking}
-      />
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Landing />} />
+      </Routes>
+    </BrowserRouter>
+    // <div className="App">
+    //   <h1 className="text-2xl font-bold mb-4">Meeting Room Booking System</h1>
+    //   <AvailableRooms
+    //     rooms={rooms}
+    //     bookings={bookings}
+    //     selectedTime={selectedTime}
+    //   />
+    //   <BookRoom rooms={rooms} bookings={bookings} onBookRoom={handleBookRoom} />
+    //   <ViewBookings bookings={bookings} user={{ id: 1 }} />
+    //   <EditBooking
+    //     bookings={bookings}
+    //     user={{ id: 1 }}
+    //     onUpdateBooking={onUpdateBooking}
+    //     onCancelBooking={onCancelBooking}
+    //   />
+    // </div>
   );
 }
 
