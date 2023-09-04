@@ -1,10 +1,13 @@
 import { useState } from "react";
 import AvailableRooms from "./components/AvailableRooms";
+import bookingsData from "./data/bookings.json";
 import BookRoom from "./components/BookRoom";
 import ViewBookings from "./components/ViewBookings";
 import EditBooking from "./components/EditBooking";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Landing from "./pages/Landing";
+import Navbar from "./components/Navbar";
+import Footer from "./components/Footer";
 
 function App() {
   // Sample data for available rooms
@@ -87,17 +90,25 @@ function App() {
 
   return (
     <BrowserRouter>
+      <Navbar />
       <Routes>
         <Route path="/" element={<Landing />} />
+        <Route
+          path="/available"
+          element={
+            <AvailableRooms
+              rooms={bookingsData.rooms}
+              bookings={bookingsData.bookings}
+              selectedTime={selectedTime}
+            />
+          }
+        />
       </Routes>
+      <Footer />
     </BrowserRouter>
     // <div className="App">
     //   <h1 className="text-2xl font-bold mb-4">Meeting Room Booking System</h1>
-    //   <AvailableRooms
-    //     rooms={rooms}
-    //     bookings={bookings}
-    //     selectedTime={selectedTime}
-    //   />
+
     //   <BookRoom rooms={rooms} bookings={bookings} onBookRoom={handleBookRoom} />
     //   <ViewBookings bookings={bookings} user={{ id: 1 }} />
     //   <EditBooking

@@ -1,5 +1,6 @@
-import { Menu, X } from "lucide-react";
+import { Menu, X, ArrowDown } from "lucide-react";
 import { useState } from "react";
+import { Link } from "react-router-dom";
 
 const menuItems = [
   {
@@ -8,7 +9,16 @@ const menuItems = [
   },
   {
     name: "Rooms",
-    href: "#",
+    submenu: [
+      {
+        name: "Available",
+        href: "/available",
+      },
+      {
+        name: "Book",
+        href: "/book",
+      },
+    ],
   },
   {
     name: "About",
@@ -21,8 +31,19 @@ const Navbar = () => {
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
+
+  const [submenuStates, setSubmenuStates] = useState(
+    menuItems.map(() => false)
+  );
+
+  const toggleSubmenu = (index) => {
+    const newSubmenuStates = [...submenuStates];
+    newSubmenuStates[index] = !newSubmenuStates[index];
+    setSubmenuStates(newSubmenuStates);
+  };
+
   return (
-    <nav className="w-full ">
+    <nav className="w-full">
       <header className="relative w-full bg-secondary">
         <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-6">
           <div className="inline-flex items-center space-x-2">
@@ -30,14 +51,44 @@ const Navbar = () => {
           </div>
           <div className="hidden lg:block">
             <ul className="inline-flex space-x-8">
-              {menuItems.map((item) => (
+              {menuItems.map((item, index) => (
                 <li key={item.name}>
-                  <a
-                    href={item.href}
-                    className="text-sm font-semibold text-gray-800 hover:text-gray-900"
-                  >
-                    {item.name}
-                  </a>
+                  {item.submenu ? (
+                    <div
+                      onClick={() => toggleSubmenu(index)}
+                      className="relative group cursor-pointer"
+                    >
+                      <span className="text-sm font-semibold text-black flex items-center">
+                        {item.name}{" "}
+                        <ArrowDown
+                          className={`h-4 w-4 ml-1 transition-transform transform ${
+                            submenuStates[index] ? "rotate-180" : ""
+                          }`}
+                        />
+                      </span>
+                      {submenuStates[index] && (
+                        <ul className="absolute z-50 left-0 mt-2 space-y-2 bg-white border border-gray-200 divide-y divide-gray-200 rounded-lg">
+                          {item.submenu.map((submenuItem) => (
+                            <li key={submenuItem.name}>
+                              <Link
+                                to={submenuItem.href}
+                                className="block px-4 py-2 text-sm text-black hover:bg-gray-100 text-center"
+                              >
+                                {submenuItem.name}
+                              </Link>
+                            </li>
+                          ))}
+                        </ul>
+                      )}
+                    </div>
+                  ) : (
+                    <Link
+                      to={item.href}
+                      className="text-sm font-semibold text-gray-800 hover:text-gray-900"
+                    >
+                      {item.name}
+                    </Link>
+                  )}
                 </li>
               ))}
             </ul>

@@ -8,12 +8,10 @@ import Navbar from "../components/Navbar";
 const Landing = () => {
   return (
     <>
-      <Navbar />
       <Hero />
       <Facilities />
       <Rooms />
       <Testimonials />
-      <Footer/>
     </>
   );
 };

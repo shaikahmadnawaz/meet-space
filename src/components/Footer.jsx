@@ -6,7 +6,7 @@ const Footer = () => {
           <div className="w-full p-6 md:w-1/2 lg:w-5/12">
             <div className="flex h-full flex-col justify-between">
               <div className="mb-4 inline-flex items-center">
-                <span className="ml-4 text-3xl font-bold">MeetSpace</span>
+                <span className="text-3xl font-bold">MeetSpace</span>
               </div>
               <div>
                 <p className="mb-4  text-base font-medium">
@@ -17,7 +17,7 @@ const Footer = () => {
                   Room to check with us)
                 </p>
                 <p className="text-sm">
-                  &copy; Copyright 2022. All Rights Reserved by MeetSpace.
+                  &copy; Copyright 2023. All Rights Reserved by MeetSpace.
                 </p>
               </div>
             </div>

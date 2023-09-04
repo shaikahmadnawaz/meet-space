@@ -27,7 +27,7 @@ const data = [
 
 const Testimonials = () => {
   return (
-    <div className="relative bg-cover bg-center h-full w-full mx-auto py-10  px-2 lg:px-8">
+    <div className="bg-cover bg-center h-full w-full mx-auto py-10 px-2 lg:px-8">
       <div className="mx-auto max-w-2xl lg:text-center py-8">
         <h2 className="text-3xl font-medium leading-tight text-black sm:text-4xl lg:text-5xl">
           Testimonies
