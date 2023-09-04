@@ -1,4 +1,4 @@
-import { Menu, X, ArrowDown } from "lucide-react";
+import { Menu, X, ChevronDown } from "lucide-react";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 
@@ -46,9 +46,13 @@ const Navbar = () => {
     <nav className="w-full">
       <header className="relative w-full bg-secondary">
         <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-6">
-          <div className="inline-flex items-center space-x-2">
-            <span className="font-bold md:text-xl">MeetSpace</span>
-          </div>
+          <Link to="/">
+            {" "}
+            <div className="inline-flex items-center space-x-2">
+              <span className="font-bold md:text-xl">MeetSpace</span>
+            </div>
+          </Link>
+
           <div className="hidden lg:block">
             <ul className="inline-flex space-x-8">
               {menuItems.map((item, index) => (
@@ -58,9 +62,9 @@ const Navbar = () => {
                       onClick={() => toggleSubmenu(index)}
                       className="relative group cursor-pointer"
                     >
-                      <span className="text-sm font-semibold text-black flex items-center">
+                      <span className="text-sm justify-center font-semibold text-black flex items-center">
                         {item.name}{" "}
-                        <ArrowDown
+                        <ChevronDown
                           className={`h-4 w-4 ml-1 transition-transform transform ${
                             submenuStates[index] ? "rotate-180" : ""
                           }`}

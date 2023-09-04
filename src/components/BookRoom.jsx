@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-const BookRoom = ({ rooms, bookings, onBookRoom }) => {
+const BookRoom = ({ rooms, onBookRoom }) => {
   const [selectedRoom, setSelectedRoom] = useState(rooms[0].id);
   const [selectedTime, setSelectedTime] = useState("");
   const [isBookingSuccessful, setBookingSuccessful] = useState(false);
@@ -40,12 +40,16 @@ const BookRoom = ({ rooms, bookings, onBookRoom }) => {
   };
 
   return (
-    <div className="bg-white p-4 rounded-lg shadow-md">
-      <h2 className="text-xl font-semibold mb-4">Book a Meeting Room</h2>
+    <div className="mx-auto py-10 max-w-md px-4">
+      <div className="mb-6 text-center">
+        <h2 className="text-2xl font-semibold text-gray-800">
+          Book a Meeting Room
+        </h2>
+      </div>
       <div className="mb-4">
-        <label className="block text-sm font-medium">Select a Room:</label>
+        <label className="block text-sm text-gray-600">Select a Room:</label>
         <select
-          className="w-full py-2 px-3 border rounded-md"
+          className="w-full p-2 border rounded-md"
           onChange={handleRoomChange}
           value={selectedRoom}
         >
@@ -57,9 +61,11 @@ const BookRoom = ({ rooms, bookings, onBookRoom }) => {
         </select>
       </div>
       <div className="mb-4">
-        <label className="block text-sm font-medium">Select a Time Slot:</label>
+        <label className="block text-sm text-gray-600">
+          Select a Time Slot:
+        </label>
         <select
-          className="w-full py-2 px-3 border rounded-md"
+          className="w-full p-2 border rounded-md"
           onChange={handleTimeChange}
           value={selectedTime}
         >
@@ -78,7 +84,7 @@ const BookRoom = ({ rooms, bookings, onBookRoom }) => {
         </select>
       </div>
       <button
-        className="bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600"
+        className="bg-primary text-white py-2 px-4 mt-3 rounded-md hover:bg-primary-dark"
         onClick={handleBookRoom}
       >
         Book Room

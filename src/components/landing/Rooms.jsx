@@ -19,7 +19,7 @@ const data = [
 const Rooms = () => {
   return (
     <div
-      className="relative bg-cover bg-center h-[650px] w-full mx-auto py-10  px-2 lg:px-8"
+      className="relative bg-cover bg-center h-screen md:h-[650px] w-full mx-auto py-10  px-2 lg:px-8"
       style={{
         backgroundImage: `url('/rooms-bg.png')`,
       }}
