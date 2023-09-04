@@ -92,7 +92,7 @@ const Footer = () => {
                   </a>
                 </li>
                 <li>
-                  <a className=" text-base font-medium  " href="#">
+                  <a className=" text-base font-medium  mb-4" href="#">
                     Instagram
                   </a>
                 </li>
