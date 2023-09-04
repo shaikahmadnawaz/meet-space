@@ -91,8 +91,8 @@ const Footer = () => {
                     Twitter
                   </a>
                 </li>
-                <li>
-                  <a className=" text-base font-medium  mb-4" href="#">
+                <li className="mb-4">
+                  <a className=" text-base font-medium" href="#">
                     Instagram
                   </a>
                 </li>
