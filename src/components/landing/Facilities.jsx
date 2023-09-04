@@ -9,7 +9,7 @@ const Facilities = () => {
   return (
     <div className="mx-auto py-10 max-w-7xl px-2 lg:px-8">
       <div className="mx-auto max-w-2xl lg:text-center">
-        <h2 className="text-3xl font-bold leading-tight text-black sm:text-4xl lg:text-5xl">
+        <h2 className="text-3xl font-medium leading-tight text-black sm:text-4xl lg:text-5xl">
           Our Facilities
         </h2>
         <p className="mt-4 max-w-xl text-base leading-relaxed text-black lg:mx-auto">
